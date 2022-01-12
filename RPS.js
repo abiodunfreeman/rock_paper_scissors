@@ -1,18 +1,26 @@
-// gets buttons into variables seperatley
 const btns = Array.from(document.querySelectorAll('button'));
-const btns_container = document.querySelector('#btns');
-const p = document.createElement('p')
-p.textContent= 'Please click on a button!'
-btns_container.appendChild(p)
-const resultText = document.createElement('h2');
-btns_container.appendChild(resultText);
+const humScr = document.querySelector('#humanScore');
+const comScr = document.createElement('h2');
+const computerDiv = document.querySelector('#computerDiv')
+comScr.textContent = 0;
+computerDiv.appendChild(comScr)
+const printResults = document.createElement('h2')
+const resetBtn = document.createElement('button')
+resetBtn.textContent = 'Play Again?';
 
 
 
-btns.forEach(function(btn){ //assigns an event listener to all buttons 
-    btn.addEventListener('click', function(e){
-//gets a random number 1-3 and assigns Rock, Paper or Scissors to the var computerPlay
-        getRandom = () => Math.floor(Math.random()* 3) + 1;
+resetBtn.addEventListener('click', () => {
+    humScr.textContent = 0;
+    comScr.textContent = 0;
+    printResults.textContent = "";
+})
+
+
+btns.forEach(function(btn){
+    btn.addEventListener('click',(e) => {
+        // -gets a random number 1-3 and sets the value to rock, paper or scissors for the computer
+getRandom = () => Math.floor(Math.random()* 3) + 1;
 let computerPlay = getRandom();
 if (computerPlay == 1 ) {
     computerPlay = "Rock";
@@ -21,34 +29,49 @@ if (computerPlay == 1 ) {
 } else {
     computerPlay = "Scissors";
 }
-//
-        const playerChoice = `${e.target.id}`
+        let results;
+        let btnPressed = e.target.id
+        console.log(`Human - ${btnPressed}`);
+        console.log(`Computer - ${comScr.textContent}`)
+        if (comScr.textContent >= 5){
+            printResults.textContent = "GAME OVER - COMPUTER WINS";
+            document.body.appendChild(printResults);
+            document.body.appendChild(resetBtn);
         
-        p.textContent = `The player chose ${playerChoice}. The Computer chose ${computerPlay}`;
+        }else if (parseInt(humScr.textContent) >= 5 ){
+            printResults.textContent = "GAME OVER - HUMAN WINS";
+            document.body.appendChild(printResults);
+            document.body.appendChild(resetBtn);
+            
+        } else if (btnPressed == computerPlay) {
+              
+            results = `TIE! You both chose ${computerPlay}`;
         
-        function playRound (playerSelection, computerSelection){
-            let results;
-            if (playerSelection == computerSelection) {
-                results = `TIE! You both chose ${e.target.id}`
-                return results
-            } else if (playerSelection == "Rock" && computerSelection == "Scissors") {
-                 results = "HUMAN WINS! Rock beats Scissors";
-                 return results;
-            } else if  (playerSelection == "Paper" && computerSelection == "Rock") {
-                results = "HUMAN WINS! Paper beats Rock";
-                return results;
-            }  else if (playerSelection == "Scissors" && computerSelection == "Paper") {
+        } else if (btnPressed == "Rock" && computerPlay == "Scissors") {
+             
+            results = "HUMAN WINS! Rock beats Scissors";
+            humScr.innerHTML++;
             
-                results = "HUMAN WINS! Scissors beats Paper";
-                 return results;
-            } else {
+        } else if (btnPressed == "Paper" && computerPlay == "Rock") {
             
-                results = `Computer Wins! ${computerSelection} beats ${playerSelection}!`;
-                 return results;
-            }
-        };
-       //everytime a button is runs function playRound and resultText text is updated to the returned results
-       resultText.textContent = playRound(playerChoice, computerPlay);
+            results = "HUMAN WINS! Paper beats Rock";
+            humScr.innerHTML++;
+            
+        } else if (btnPressed == "Scissors" && computerPlay == "Paper") {
+           
+           results = "HUMAN WINS! Scissors beats Paper";
+           humScr.innerHTML++;
+            
+       } else {
+       
+           results = `Computer Wins! ${computerPlay} beats ${btnPressed}!`;
+           comScr.innerHTML++;
+            
+       }
     })
+});
+
+if (humScr.textContent > 5 || comScr.textContent > 5) {
     
-})
+} 
+

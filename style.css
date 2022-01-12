@@ -1,0 +1,33 @@
+body {
+    display:flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+button {
+    height:6em;
+    width: 12em;
+}
+body > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn_row {
+    display:flex;
+    justify-content: space-around;
+    border:purple 2px solid;
+    padding-bottom: 2em;
+    padding-top: 2em;
+}
+
+#score_row {
+    display:flex;
+    border:red 2px solid;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-bottom: 2em;
+    padding-top: 2em;
+}
+
