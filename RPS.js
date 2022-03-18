@@ -1,9 +1,9 @@
 const btns = Array.from(document.querySelectorAll('button'));
-const humScr = document.querySelector('#humanScore');
-const comScr = document.createElement('h2');
-const computerDiv = document.querySelector('#computerDiv')
-comScr.textContent = 0;
-computerDiv.appendChild(comScr)
+const humScr = document.getElementById('humanScore');
+const comScr = document.getElementById('computerScore');
+
+
+
 const printResults = document.createElement('h2')
 const resetBtn = document.createElement('button')
 resetBtn.textContent = 'Play Again?';
